@@ -1,0 +1,114 @@
+.jobs{
+    width: 100%;
+  }
+  .job-list {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 20px;
+    }
+    .search-jobs{
+      width: 250px;
+      border: none;
+      background-color: rgb(214, 212, 212);
+      border-radius: 10px;
+      padding: 7px 10px;
+      margin-right: 10px;
+    }
+    .title-status{
+      font-weight: 700;
+      width: 75%;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+    }
+    .job-item {
+      width: 100%;
+      border-radius: 5px;
+      background-color: rgb(187, 185, 185);
+    }
+    .job-example{
+      background-color: white;
+    }
+    .job{
+      width: 80%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 5px auto;
+    }
+    
+    .job-name {
+      font-weight: bold;
+    }
+    
+    .job-status {
+      width: 180px;
+      color: #007acc; 
+      padding: 5px 10px;
+      color: white;
+      border-radius: 10px;
+    }
+    .header-dashboard{
+      margin: 10px auto;
+      width: 90%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .button{
+      padding: 7px 10px;
+      width: 110px;
+      background-color: green;
+      color: white;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+    }
+  
+    .modal-box{
+      background-color: white;
+      margin: 30px auto;
+      padding: 40px 10px;
+      display: flex;
+      flex-wrap: wrap;
+      width: 40%;
+    }
+    .modal-2{
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .modal-1{
+      display: flex;
+      flex-direction: column;
+      margin: 10px auto;
+      padding: 10px 10px;
+      width: 60%;
+      align-items: center;
+      justify-content: space-between;
+    }
+  
+  .status-completed {
+    background-color: rgb(19, 120, 19);
+    color: white;
+  }
+  
+  .status-on-road {
+    background-color: rgb(247, 247, 52);
+  }
+  
+  .status-on-hold {
+    background-color: rgb(248, 32, 32);
+  }
+
+  .buttons{
+    display: flex;
+    justify-content: space-between;
+  }
+  .info-icon{
+    display: flex;
+    align-items: center;
+  }

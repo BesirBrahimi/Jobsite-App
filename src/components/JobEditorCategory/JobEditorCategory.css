@@ -1,0 +1,22 @@
+.categories-list{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.categories{
+    height: 60vh;
+    margin: 20px auto;
+}
+
+.category{
+    margin: 15px auto;
+    background-color: rgb(10, 22, 253);
+    color: white;
+    border-radius: 10px;
+    padding: 10px 5px;
+    cursor: pointer;
+    width: 250px;
+}
+.selected{
+    background-color: rgb(18, 204, 18);
+}

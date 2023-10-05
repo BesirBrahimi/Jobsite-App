@@ -1,0 +1,6 @@
+.modal-edit{
+    display: flex;
+    flex-direction: column;
+    height: 40vh;
+    align-items: center;
+}
