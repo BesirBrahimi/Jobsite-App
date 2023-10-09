@@ -19,4 +19,6 @@
 }
 .selected{
     background-color: rgb(18, 204, 18);
+    transition: background-color 0.3s ease;
+
 }

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Button,
   Box,
@@ -25,7 +25,7 @@ export type Data = {
 };
 
 type CategoryContent = {
-  [key: string]: Data[]; // Use an object with category names as keys
+  [key: string]: Data[]; 
 };
 
 const JobEditorCategory = () => {
@@ -38,8 +38,7 @@ const JobEditorCategory = () => {
   const navigate = useNavigate();
 
   const selectedJob = jobs.find((job) => job.title === category);
-
-
+  
   const handleGoBack = () => {
     navigate("/");
   };

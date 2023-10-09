@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   Button,
   Box,
@@ -33,6 +33,21 @@ const JobEditor: React.FC = () => {
     navigate("/");
   };
 
+  // const handleSaveJob = () => {
+  //   if (selectedJob) {
+  //     const updatedJobs = jobs.map((job) =>
+  //       job.id === selectedJob.id
+  //         ? { ...job, title: jobTitle, status: jobStatus, categories: selectedCategories }
+  //         : job
+  //     );
+
+  //     setJobs(updatedJobs);
+  //     localStorage.setItem("jobs", JSON.stringify(updatedJobs));
+
+  //     navigate("/");
+  //   }
+  // };
+
   const handleSaveJob = () => {
     if (selectedJob) {
       const updatedJobs = jobs.map((job) =>
@@ -40,13 +55,24 @@ const JobEditor: React.FC = () => {
           ? { ...job, title: jobTitle, status: jobStatus, categories: selectedCategories }
           : job
       );
-
-      setJobs(updatedJobs);
-      localStorage.setItem("jobs", JSON.stringify(updatedJobs));
-
-      navigate("/");
+  
+      // Find the index of the selected job in the updatedJobs array
+      const index = updatedJobs.findIndex((job) => job.id === selectedJob.id);
+  
+      if (index !== -1) {
+        // Remove the selected job from its current position and add it to the beginning
+        const editedJob = updatedJobs.splice(index, 1)[0];
+        updatedJobs.unshift(editedJob);
+  
+        setJobs(updatedJobs);
+        localStorage.setItem("jobs", JSON.stringify(updatedJobs));
+        navigate("/");
+      }
     }
   };
+  
+
+  
 
   return (
     <Box sx={{ width: "100%", height: "92.5vh" }}>
@@ -116,6 +142,7 @@ const JobEditor: React.FC = () => {
             variant="contained"
             color="primary"
             onClick={handleSaveJob}
+            disabled={jobTitle.trim().length === 0 || jobStatus.trim().length === 0 || selectedCategories.length === 0}
           >
             Save
           </Button>

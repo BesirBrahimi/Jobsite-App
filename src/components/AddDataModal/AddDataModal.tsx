@@ -35,7 +35,6 @@ const AddDataModal: React.FC<AddDataModalProps> = ({
   const [currentEditedData, setCurrentEditedData] =
     useState<Data>(initialEditedData);
 
-  // Update the form fields when edited data changes
   useEffect(() => {
     setCurrentEditedData(initialEditedData);
   }, [editedData]);
@@ -44,9 +43,8 @@ const AddDataModal: React.FC<AddDataModalProps> = ({
 
     const handleSave = () => {
       if(currentEditedData.Description.trim() !== "" && currentEditedData.Nr.trim() !== "" ){
-          // Add validation if needed
-          onSave(currentEditedData); // Call the parent component's function to add/edit data
-          onClose(); // Close the modal
+          onSave(currentEditedData);
+          onClose(); 
           setCurrentEditedData(initialEditedData);      
       }
     };
