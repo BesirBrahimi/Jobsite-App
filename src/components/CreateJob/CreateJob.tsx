@@ -47,9 +47,9 @@ const CreateJob: React.FC<OpenModal> = ({openJobModal, setOpenJobModal}) => {
   return (
     <Modal open={openJobModal} onClose={handleCloseModal}>
       <Box sx={{padding:"20px"}}>
-        <h2>Create New Job</h2>
         <Box className="modal-box">
           <Box className="modal-1">
+          <h2 style={{margin:"20px auto"}}>Create New Job</h2>
             <TextField
               label="Job Title"
               variant="filled"
@@ -94,6 +94,7 @@ const CreateJob: React.FC<OpenModal> = ({openJobModal, setOpenJobModal}) => {
               style={{ width: '56%', margin: '10px auto' }}
               variant="contained"
               color="primary"
+              disabled={jobTitle.trim().length === 0 || jobStatus.trim().length === 0 || selectedCategories.length === 0}
               onClick={createNewJob}
             >
               Save

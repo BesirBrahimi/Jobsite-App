@@ -1,11 +1,10 @@
-.jobs{
-    width: 100%;
-  }
+
   .job-list {
       display: flex;
       flex-direction: column;
       align-items: center;
       margin: 20px;
+      width: 100%;
     }
     .search-jobs{
       width: 250px;
@@ -32,7 +31,8 @@
       background-color: white;
     }
     .job{
-      width: 80%;
+      width: 97%;
+      height: 40px;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -44,9 +44,8 @@
     }
     
     .job-status {
-      width: 180px;
       color: #007acc; 
-      padding: 5px 10px;
+      padding: 6px 10px;
       color: white;
       border-radius: 10px;
     }
@@ -111,4 +110,9 @@
   .info-icon{
     display: flex;
     align-items: center;
+  }
+
+  .final-job{
+    width: 96%;
+    margin: 5px auto;
   }
