@@ -12,7 +12,7 @@ function App() {
        <Routes>
         <Route path="/" element={<Dashboard />} />
         <Route path="/job-editor/:id" element={<JobEditor/>} />
-        <Route path="/job-editor-category/:category" element={<JobEditorCategory/>} />
+        <Route path="/job-editor-category/:id" element={<JobEditorCategory/>} />
       </Routes> 
     </div>
   );

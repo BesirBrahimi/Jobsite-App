@@ -20,5 +20,17 @@
 .selected{
     background-color: rgb(18, 204, 18);
     transition: background-color 0.3s ease;
-
+}
+.job-name-category{
+    text-decoration: underline;
+    text-transform: capitalize;
+    margin-left: 5px;
+    color: rgb(10, 22, 253);
+    font-weight: 700;
+    cursor: pointer;
+}
+.desc{
+    margin: 10px auto;
+    font-size: 20px;
+    color: rgb(59, 58, 58);
 }

@@ -25,7 +25,7 @@ export type Data = {
 };
 
 type CategoryContent = {
-  [key: string]: Data[]; 
+  [key: string]: Data[];
 };
 
 const JobEditorCategory = () => {
@@ -33,12 +33,17 @@ const JobEditorCategory = () => {
   const [isAddDataModalOpen, setAddDataModalOpen] = useState(false);
   const [categoryContent, setCategoryContent] = useState<CategoryContent>({});
   const [selectedRowData, setSelectedRowData] = useState<Data | null>(null);
-  const {jobs} = useGlobalContext()
-  const { category } = useParams();
+  const { jobs } = useGlobalContext();
+  const { id } = useParams();
   const navigate = useNavigate();
 
-  const selectedJob = jobs.find((job) => job.title === category);
-  
+  const selectedJob = jobs.find((job) => job.id === id);
+
+  const [jobTitle, setJobTitle] = useState<string>(selectedJob?.title || "");
+  const [selectedCategories, setSelectedCategories] = useState<string[]>(
+    selectedJob?.categories || []
+  );
+
   const handleGoBack = () => {
     navigate("/");
   };
@@ -94,8 +99,6 @@ const JobEditorCategory = () => {
     }
   };
 
-  
-
   return (
     <Box className="modal">
       <Box sx={{ width: "95%", margin: "30px auto" }}>
@@ -105,31 +108,37 @@ const JobEditorCategory = () => {
               elevation={3}
               style={{ padding: "16px", height: "85vh", width: "100%" }}
             >
-              <h3>Categories</h3>
-              <h3>{selectedJob?.title}</h3>
+              <p className="desc">
+                Job selected:
+                <a href="/" className="job-name-category">
+                  {jobTitle}
+                </a>
+              </p>
+              <h4>Categories</h4>
               <ul className="categories">
-                {category &&
-                  category.split(",").map((cat, index) => (
-                    <li
-                      className="categories-list"
-                      key={index}
-                      onClick={() => handleCategoryClick(cat.trim())}
+                {selectedCategories.map((category, index) => (
+                  <li
+                    className="categories-list"
+                    key={index}
+                    onClick={() => handleCategoryClick(category)}
+                  >
+                    <span
+                      className={`category ${
+                        selectedCategory?.includes(category) ? "selected" : ""
+                      }`}
                     >
-                      <span
-                        className={`category ${
-                          selectedCategory?.includes(cat.trim())
-                            ? "selected"
-                            : ""
-                        }`}
-                      >
-                        {cat.trim()}
-                      </span>
-                    </li>
-                  ))}
+                      {category}
+                    </span>
+                  </li>
+                ))}
               </ul>
               <Button
                 variant="contained"
-                style={{ marginTop: "10px", width:"250px" , backgroundColor:"red"}}
+                style={{
+                  marginTop: "10px",
+                  width: "250px",
+                  backgroundColor: "red",
+                }}
                 onClick={handleGoBack}
               >
                 Go Back
@@ -147,13 +156,15 @@ const JobEditorCategory = () => {
                 }}
               >
                 <h3>{selectedCategory && selectedCategory}</h3>
-                {selectedCategory && <Button
-                  variant="contained"
-                  color="primary"
-                  onClick={handleOpenAddDataModal}
-                >
-                  Add Data
-                </Button>}
+                {selectedCategory && (
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={handleOpenAddDataModal}
+                  >
+                    Add Data
+                  </Button>
+                )}
               </Box>
               {selectedCategory && (
                 <Box>
@@ -173,7 +184,7 @@ const JobEditorCategory = () => {
                             <TableRow
                               key={item.id}
                               style={{ cursor: "pointer" }}
-                              onClick={()=> handleEditRow(item)}
+                              onClick={() => handleEditRow(item)}
                             >
                               <TableCell>{item.Nr}</TableCell>
                               <TableCell>{item.Quantity}</TableCell>
@@ -193,8 +204,8 @@ const JobEditorCategory = () => {
             open={isAddDataModalOpen}
             onClose={handleCloseAddDataModal}
             onSave={selectedRowData ? handleSaveEditedData : addDataToCategory}
-            editedData={selectedRowData ?? undefined} 
-            />
+            editedData={selectedRowData ?? undefined}
+          />
         </Grid>
       </Box>
     </Box>

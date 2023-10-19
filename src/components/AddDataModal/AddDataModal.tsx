@@ -14,14 +14,14 @@ type AddDataModalProps = {
   open: boolean;
   onClose: () => void;
   onSave: (data: Data) => void;
-  editedData?: Data; // Pass the edited data if it's for editing
+  editedData?: Data; 
 };
 
 const AddDataModal: React.FC<AddDataModalProps> = ({
   open,
   onClose,
   onSave,
-  editedData, // Receive the edited data if provided
+  editedData, 
 }) => {
   const initialEditedData = editedData || {
     id: uuidv4(),

@@ -23,7 +23,7 @@ const Dashboard = () => {
   };
 
   const handleCategoryClick = (job: Job) => {
-    navigate(`/job-editor-category/${job.categories}`);
+    navigate(`/job-editor-category/${job.id}`);
   };
 
   const filteredJobs = jobs
