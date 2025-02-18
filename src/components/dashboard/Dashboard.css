@@ -13,6 +13,7 @@
       border-radius: 10px;
       padding: 7px 10px;
       margin-right: 10px;
+      outline: none;
     }
     .paragraph{
       text-transform: capitalize;
@@ -88,11 +89,14 @@
       flex-direction: column;
       margin: 10px auto;
       padding: 10px 10px;
-      width: 60%;
+      width: 100%;
       align-items: center;
       justify-content: space-between;
     }
-  
+  .box-center {
+    display: flex;
+    align-items: center;
+  }
   .status-completed {
     background-color: rgb(19, 120, 19);
     color: white;
@@ -118,4 +122,11 @@
   .final-job{
     width: 96%;
     margin: 5px auto;
+  }
+ 
+  .delete-button{
+    text-transform: capitalize !important;
+  }
+  .edit-button{
+    text-transform: capitalize !important;
   }

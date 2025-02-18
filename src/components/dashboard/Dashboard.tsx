@@ -1,24 +1,27 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./Dashboard.css";
 import InfoIcon from "@mui/icons-material/Info";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Button } from "@mui/material";
 import { Job, useGlobalContext } from "../../context";
 import Header from "../header/Header";
 import CreateJob from "../CreateJob/CreateJob";
-import { DragDropContext, Draggable, Droppable, DropResult  } from 'react-beautiful-dnd';
+import {
+  DragDropContext,
+  Draggable,
+  Droppable,
+  DropResult,
+} from "react-beautiful-dnd";
 
 const Dashboard = () => {
-  const [searchInput, setSearchInput] = useState<string>(""); // State for search input
+  const [searchInput, setSearchInput] = useState<string>(""); 
   const [openJobModal, setOpenJobModal] = useState<boolean>(false);
-  const [selectedJob, setSelectedJob] = useState<Job | null>(null);
 
   const navigate = useNavigate();
 
   const { jobs, setJobs } = useGlobalContext();
 
   const handleJobClick = (job: Job) => {
-    setSelectedJob(job);
     navigate(`job-editor/${job.id}`);
   };
 
@@ -34,14 +37,14 @@ const Dashboard = () => {
 
   const getStatusColorClass = (status: string) => {
     switch (status) {
-      case 'Completed':
-        return 'status-completed';
-      case 'On Road':
-        return 'status-on-road';
-      case 'On Hold':
-        return 'status-on-hold';
+      case "Completed":
+        return "status-completed";
+      case "On Road":
+        return "status-on-road";
+      case "On Hold":
+        return "status-on-hold";
       default:
-        return '';
+        return "";
     }
   };
 
@@ -57,7 +60,7 @@ const Dashboard = () => {
     }
   };
 
-  const onDragEnd = (result: DropResult ) => {
+  const onDragEnd = (result: DropResult) => {
     if (!result.destination) {
       return; // Dragged outside the list, do nothing
     }
@@ -71,12 +74,26 @@ const Dashboard = () => {
     localStorage.setItem("jobs", JSON.stringify(updatedJobs));
   };
 
+  const searchJobs = useRef<HTMLInputElement | null>(null);
+
+  useEffect(() => {
+    if (searchJobs.current) {
+      searchJobs.current.focus();
+    }
+  }, []);
+
   return (
     <div className="App">
       <Header
-        completedCount={jobs ? jobs.filter((job) => job.status === "Completed").length : 0}
-        onRoadCount={jobs ? jobs.filter((job) => job.status === "On Road").length : 0}
-        onHoldCount={jobs ? jobs.filter((job) => job.status === "On Hold").length : 0}
+        completedCount={
+          jobs ? jobs.filter((job) => job.status === "Completed").length : 0
+        }
+        onRoadCount={
+          jobs ? jobs.filter((job) => job.status === "On Road").length : 0
+        }
+        onHoldCount={
+          jobs ? jobs.filter((job) => job.status === "On Hold").length : 0
+        }
       />
       <div className="header-dashboard">
         <p className="info-icon">
@@ -89,6 +106,7 @@ const Dashboard = () => {
             type="search"
             placeholder="Search..."
             value={searchInput}
+            ref={searchJobs}
             onChange={(e) => setSearchInput(e.target.value)}
           />
           <button className="button" onClick={openCreateJobModal}>
@@ -100,10 +118,22 @@ const Dashboard = () => {
         <DragDropContext onDragEnd={onDragEnd}>
           <Droppable droppableId="job-list">
             {(provided) => (
-              <div className="final-job" {...provided.droppableProps} ref={provided.innerRef}>
+              <div
+                className="final-job"
+                {...provided.droppableProps}
+                ref={provided.innerRef}
+              >
                 <div className="title-status">
                   <p style={{ width: "60%", fontSize: "18px" }}>Jobs Name:</p>
-                  <p style={{ width: "10%",marginLeft:"110px", fontSize: "18px" }}>Job Status:</p>
+                  <p
+                    style={{
+                      width: "10%",
+                      marginLeft: "110px",
+                      fontSize: "18px",
+                    }}
+                  >
+                    Job Status:
+                  </p>
                 </div>
                 {filteredJobs.map((job, index) => (
                   <Draggable key={job.id} draggableId={job.id} index={index}>
@@ -112,7 +142,9 @@ const Dashboard = () => {
                         ref={provided.innerRef}
                         {...provided.draggableProps}
                         {...provided.dragHandleProps}
-                        className={`job-item ${index % 2 === 0 ? "" : "job-example"}`}
+                        className={`job-item ${
+                          index % 2 === 0 ? "" : "job-example"
+                        }`}
                       >
                         <div className="job">
                           <div
@@ -122,12 +154,33 @@ const Dashboard = () => {
                           >
                             <p className="paragraph">{job.title}</p>
                           </div>
-                          <div style={{ width: "215px" }} className={`job-status ${getStatusColorClass(job.status)}`}>
+                          <div
+                            style={{ width: "215px" }}
+                            className={`job-status ${getStatusColorClass(
+                              job.status
+                            )}`}
+                          >
                             <p>{job.status}</p>
                           </div>
                           <div className="buttons">
-                            <Button sx={{ width: "5%", height: "20px" }} onClick={() => handleDeleteJob(job.id)} variant="contained" color="error" className="delete-button">Delete</Button>
-                            <Button sx={{ width: "5%", height: "20px" }} variant="contained" color="primary" onClick={() => handleJobClick(job)}>Edit</Button>
+                            <Button
+                              sx={{ width: "5%", height: "20px" }}
+                              onClick={() => handleDeleteJob(job.id)}
+                              variant="contained"
+                              color="error"
+                              className="delete-button"
+                            >
+                              Delete
+                            </Button>
+                            <Button
+                              sx={{ width: "5%", height: "20px" }}
+                              variant="contained"
+                              color="primary"
+                              onClick={() => handleJobClick(job)}
+                              className="edit-button"
+                            >
+                              Edit
+                            </Button>
                           </div>
                         </div>
                       </div>
@@ -140,18 +193,21 @@ const Dashboard = () => {
           </Droppable>
         </DragDropContext>
       </div>
-      {openJobModal && <CreateJob openJobModal={openJobModal} setOpenJobModal={setOpenJobModal} />}
+      {openJobModal && (
+        <CreateJob
+          openJobModal={openJobModal}
+          setOpenJobModal={setOpenJobModal}
+        />
+      )}
     </div>
   );
 };
 
 export default Dashboard;
 
+///////////////////////////////////////////////////////
 
-
-/////////////////////////////////////////////////////// 
-
-// Without drag and drop: 
+// Without drag and drop:
 
 // import React, { useState, useEffect } from "react";
 // import "./Dashboard.css";
@@ -163,8 +219,6 @@ export default Dashboard;
 // import CreateJob from "../CreateJob/CreateJob";
 // import { DragDropContext, Draggable, Droppable, DropResult } from 'react-beautiful-dnd';
 
-
-
 // const Dashboard = () => {
 //   const [searchInput, setSearchInput] = useState<string>(""); // State for search input
 //   const [openJobModal, setOpenJobModal] = useState<boolean>(false)
@@ -173,7 +227,6 @@ export default Dashboard;
 //   const navigate = useNavigate();
 
 //   const { jobs, setJobs } = useGlobalContext();
-
 
 //   const handleJobClick = (job: Job) => {
 //     setSelectedJob(job);
@@ -188,7 +241,7 @@ export default Dashboard;
 //   ? jobs.filter((job) =>
 //       job.title?.toLowerCase().includes(searchInput.toLowerCase())
 //     )
-//   : [];  
+//   : [];
 
 //   const getStatusColorClass = (status: string) => {
 //     switch (status) {
@@ -213,8 +266,6 @@ export default Dashboard;
 //       localStorage.setItem("jobs", JSON.stringify(updatedJobs));
 //     }
 //   };
-
-  
 
 //   return (
 //     <div className="App">
@@ -251,7 +302,7 @@ export default Dashboard;
 //             key={index}
 //             className={`job-item ${index % 2 === 0 ? "" : "job-example"}`}
 //           >
-//             <div className="job"> 
+//             <div className="job">
 //               <div
 //                 style={{ cursor: "pointer", width: "60%" }}
 //                 className="job-name"

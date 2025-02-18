@@ -1,5 +1,4 @@
 import './App.css';
-import React from 'react';
 import { Routes , Route} from 'react-router-dom';
 import Dashboard from './components/dashboard/Dashboard';
 import JobEditor from './components/JobEditor/JobEditor';
